@@ -1,0 +1,13 @@
+{
+  "name": "contract-masterplan",
+  "version": "1.0.0",
+  "description": "Enforces contract-first delivery: derives the API/schema contract before implementation and verifies producers and consumers against it.",
+  "author": {
+    "name": "nirmata78",
+    "url": "https://github.com/nirmata78"
+  },
+  "homepage": "https://github.com/nirmata78/dev-standards/tree/main/plugins/contract-masterplan",
+  "repository": "https://github.com/nirmata78/dev-standards",
+  "license": "MIT",
+  "keywords": ["api", "openapi", "contract-testing", "schema"]
+}
