@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "example-plugin",
   "version": "0.1.0",
   "description": "Reference plugin demonstrating the expected layout. Copy it as a starting point for a real plugin, or delete it.",
