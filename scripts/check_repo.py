@@ -167,6 +167,18 @@ def main() -> int:
                 nav_entry.get("manifest") == f"plugins/{name}/.claude-plugin/plugin.json",
                 f"{name}: docs/nav.json manifest path is wrong",
             )
+            # Optional `reference` block: supporting docs a plugin ships that
+            # are not skills. Indexed, so they are checked like everything else.
+            for ref_name, ref in (nav_entry.get("reference") or {}).items():
+                check(
+                    (ROOT / ref.get("path", "")).is_file(),
+                    f"{name}: docs/nav.json reference {ref_name!r} points at "
+                    f"{ref.get('path')!r}, which does not exist",
+                )
+                check(
+                    bool(ref.get("summary")),
+                    f"{name}: docs/nav.json reference {ref_name!r} has no summary",
+                )
 
         # --- skills -----------------------------------------------------------
         skills_dir = plugin_dir / "skills"

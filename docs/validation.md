@@ -25,6 +25,8 @@ Dependency-free; runs on a bare `python3`. It enforces the
 - Every skill has a `SKILL.md` with a 40-1024 character description and a body.
 - Every skill is named in its plugin README and has a `### <skill>` docs section.
 - Every nav path exists; every nav entry has a summary; no orphans either way.
+- Every `reference` entry a plugin declares in `docs/nav.json` resolves to a
+  real file and carries a summary.
 
 Failures print as a list with the file and the rule that was broken.
 

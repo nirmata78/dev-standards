@@ -3,7 +3,7 @@
 [![validate](https://github.com/nirmata78/dev-standards/actions/workflows/validate.yml/badge.svg)](https://github.com/nirmata78/dev-standards/actions/workflows/validate.yml)
 [![pages](https://github.com/nirmata78/dev-standards/actions/workflows/pages.yml/badge.svg)](https://github.com/nirmata78/dev-standards/actions/workflows/pages.yml)
 [![docs](https://img.shields.io/badge/docs-nirmata78.github.io-blue)](https://nirmata78.github.io/dev-standards/)
-[![plugins](https://img.shields.io/badge/plugins-1-informational)](https://nirmata78.github.io/dev-standards/#plugins)
+[![plugins](https://img.shields.io/badge/plugins-2-informational)](https://nirmata78.github.io/dev-standards/#plugins)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 A Claude Code plugin marketplace for AI-managed repositories, plus the
@@ -56,10 +56,11 @@ Append `#<ref>` to a git URL to pin a branch or tag.
 
 | Plugin | Version | Description |
 |---|---|---|
+| [pragmatic-codewiki](plugins/pragmatic-codewiki) | 0.1.0 | Deferred documentation sync at pull request boundaries, with ownership tiers that keep human decisions from being overwritten by code state. |
 | [example-plugin](plugins/example-plugin) | 0.1.0 | Reference plugin demonstrating the expected layout. Copy it to start a real plugin, or delete it. |
 
-This is a skeleton. `example-plugin` is a placeholder that proves the structure
-loads; real plugins get added on top of it.
+`example-plugin` is a placeholder that proves the structure loads. It can be
+deleted once it stops being useful as a template.
 
 ## Team-wide installation
 
@@ -77,7 +78,7 @@ commit this to that repo's `.claude/settings.json`:
     }
   },
   "enabledPlugins": {
-    "example-plugin@dev-standards": true
+    "pragmatic-codewiki@dev-standards": true
   }
 }
 ```

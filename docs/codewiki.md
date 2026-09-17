@@ -9,6 +9,13 @@ yesterday's session, so anything not written down is re-derived - slowly,
 and sometimes wrongly. These three rules exist to make the repository legible
 to an agent that arrives with no context, and CI enforces all three.
 
+These rules govern *this* repository, and they are strict because it is small
+and machine-checkable: every rule here is a `scripts/check_repo.py` assertion.
+Applying the same idea to ordinary product code needs a workflow rather than a
+build failure - that is what the
+[pragmatic-codewiki](plugins/pragmatic-codewiki.md) plugin ships, and where the
+reasoning about deferred sync and document ownership lives.
+
 ## 1. Atomic docs near code
 
 High-level concepts live in [`/docs`](index.md). Anything that describes a
