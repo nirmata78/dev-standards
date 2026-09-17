@@ -97,6 +97,21 @@ the shape to follow.
 }
 ```
 
+A plugin that ships supporting documentation which is not a skill - a shared
+reference two skills both link to, for example - declares it alongside `skills`
+so the index stays complete:
+
+```json
+"reference": {
+  "<doc-name>": {
+    "path": "plugins/<your-name>/reference/<doc-name>.md",
+    "summary": "One line."
+  }
+}
+```
+
+CI checks those paths too. The block is optional; most plugins will not need it.
+
 Also add a row to the plugin table in `docs/index.md` and in the repository
 README.
 

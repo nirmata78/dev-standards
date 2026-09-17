@@ -39,7 +39,8 @@ Agents should read that file rather than scanning the repository.
 
 | Plugin | Version | Description |
 |---|---|---|
+| [pragmatic-codewiki](plugins/pragmatic-codewiki.md) | 0.1.0 | Deferred documentation sync at pull request boundaries, with ownership tiers that keep human decisions from being overwritten by code state. |
 | [example-plugin](plugins/example-plugin.md) | 0.1.0 | Reference plugin demonstrating the expected layout. Copy it to start a real plugin, or delete it. |
 
-This is a skeleton: `example-plugin` is a placeholder that exists to prove the
-structure loads. Real plugins get added on top of it.
+`example-plugin` is a placeholder that exists to prove the structure loads. It
+can be deleted once it stops being useful as a template.

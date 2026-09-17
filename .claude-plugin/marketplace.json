@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "dev-standards",
   "description": "Engineering standards for AI-managed repositories - a Claude Code plugin marketplace.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "owner": {
     "name": "nirmata78",
     "url": "https://github.com/nirmata78"
@@ -23,6 +23,25 @@
         "template"
       ],
       "category": "example"
+    },
+    {
+      "name": "pragmatic-codewiki",
+      "source": "./plugins/pragmatic-codewiki",
+      "description": "Keeps documentation current without paying for it on every commit: deferred doc synchronization at pull request boundaries, with derived docs rewritten from code and human-authored intent docs audited but never overwritten.",
+      "version": "0.1.0",
+      "author": {
+        "name": "nirmata78"
+      },
+      "homepage": "https://github.com/nirmata78/dev-standards/tree/main/plugins/pragmatic-codewiki",
+      "license": "MIT",
+      "keywords": [
+        "documentation",
+        "codewiki",
+        "adr",
+        "pull-request",
+        "sdlc"
+      ],
+      "category": "documentation"
     }
   ]
 }

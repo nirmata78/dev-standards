@@ -24,6 +24,35 @@
           "model_invocable": false
         }
       }
+    },
+    "pragmatic-codewiki": {
+      "manifest": "plugins/pragmatic-codewiki/.claude-plugin/plugin.json",
+      "readme": "plugins/pragmatic-codewiki/README.md",
+      "doc": "docs/plugins/pragmatic-codewiki.md",
+      "summary": "Deferred documentation sync at pull request boundaries, with ownership tiers that keep human-authored decisions from being overwritten by code state.",
+      "reference": {
+        "doc-taxonomy": {
+          "path": "plugins/pragmatic-codewiki/reference/doc-taxonomy.md",
+          "summary": "Intent / derived / generated tiers, and how to classify an unfamiliar doc."
+        }
+      },
+      "skills": {
+        "codewiki-init": {
+          "path": "plugins/pragmatic-codewiki/skills/codewiki-init/SKILL.md",
+          "summary": "Scaffold DOCUMENTATION.md, the /docs subtree, an ADR index, and the agent protocol section into a repository.",
+          "model_invocable": true
+        },
+        "doc-sync": {
+          "path": "plugins/pragmatic-codewiki/skills/doc-sync/SKILL.md",
+          "summary": "Update derived docs from the branch diff before a pull request; audit intent docs without rewriting them.",
+          "model_invocable": true
+        },
+        "doc-audit": {
+          "path": "plugins/pragmatic-codewiki/skills/doc-audit/SKILL.md",
+          "summary": "Report documentation drift, broken index links, orphans, and undocumented public surface. Read-only.",
+          "model_invocable": true
+        }
+      }
     }
   }
 }
