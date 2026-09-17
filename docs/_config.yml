@@ -1,0 +1,18 @@
+title: dev-standards
+description: Engineering standards for AI-managed repositories - a Claude Code plugin marketplace.
+theme: jekyll-theme-primer
+
+# nav.json is data, not a page to render, but it must stay downloadable
+# so agents can fetch the navigation tree from the published site.
+include:
+  - nav.json
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+
+defaults:
+  - scope:
+      path: ''
+    values:
+      layout: default

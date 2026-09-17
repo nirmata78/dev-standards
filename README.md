@@ -1,62 +1,37 @@
 # dev-standards
 
-A Claude Code plugin marketplace. This repository is the skeleton - it defines
-the layout and the marketplace index; the plugins themselves get added over
-time.
+[![validate](https://github.com/nirmata78/dev-standards/actions/workflows/validate.yml/badge.svg)](https://github.com/nirmata78/dev-standards/actions/workflows/validate.yml)
+[![pages](https://github.com/nirmata78/dev-standards/actions/workflows/pages.yml/badge.svg)](https://github.com/nirmata78/dev-standards/actions/workflows/pages.yml)
+[![docs](https://img.shields.io/badge/docs-nirmata78.github.io-blue)](https://nirmata78.github.io/dev-standards/)
+[![plugins](https://img.shields.io/badge/plugins-1-informational)](https://nirmata78.github.io/dev-standards/#plugins)
+[![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-It currently ships one placeholder plugin, `example-plugin`, whose only job is
-to prove the structure loads. Copy it to start a real plugin, or delete it once
-there are real ones.
+A Claude Code plugin marketplace for AI-managed repositories, plus the
+documentation rules that keep it legible to the agents that maintain it.
 
-## Two names, on purpose
+The repository and the marketplace share one name - `dev-standards` - so you add
+it and install from it using the same identifier.
 
-The repository is `nirmata78/dev-standards`. The marketplace it publishes is
-named **`eng-pack`**. These are different identifiers and both are needed:
-
-- You **add** the marketplace by its repository: `nirmata78/dev-standards`
-- You **install** from it by its marketplace name: `<plugin>@eng-pack`
-
-The marketplace name comes from the `name` field in
-`.claude-plugin/marketplace.json` and is independent of the repository name.
-If you would rather they match, change that one field - nothing else in the
-repo depends on it, though anyone who has already added the marketplace would
-need to re-add it.
-
-Plugin names, by contrast, are kept identical across the three places they
-appear (directory name, `plugin.json` `name`, and the `marketplace.json`
-entry). Claude Code permits the marketplace entry's name to differ from the
-plugin's own manifest, but that only creates confusion about which name to
-install by.
+**Documentation: [nirmata78.github.io/dev-standards](https://nirmata78.github.io/dev-standards/)**
 
 ## Install
 
-Add the marketplace once:
-
 ```
 /plugin marketplace add nirmata78/dev-standards
+/plugin install <plugin-name>@dev-standards
 ```
 
-Then install a plugin from it:
+Or run `/plugin` and browse the **Discover** tab.
 
-```
-/plugin install <plugin-name>@eng-pack
-```
-
-Or browse and install interactively:
-
-```
-/plugin
-```
-
-At install you choose a scope: **user** (all your projects), **project**
-(shared with collaborators via `.claude/settings.json`), or **local** (just you,
-just this repo). Claude Code activates the plugin in the current session; if the
+At install you choose a scope: **user** (all your projects), **project** (shared
+with collaborators via `.claude/settings.json`), or **local** (just you, just
+this repo). Claude Code activates the plugin in the current session; if the
 install summary says `Run /reload-plugins to activate.`, it runs that for you.
 
 A plugin's skills are namespaced by the plugin name, so a skill directory
 `skills/foo/` inside `example-plugin` is invoked as `/example-plugin:foo`.
 
-### Other ways to add the marketplace
+### Other ways to add it
 
 ```
 /plugin marketplace add https://github.com/nirmata78/dev-standards.git   # full git URL
@@ -69,13 +44,22 @@ Append `#<ref>` to a git URL to pin a branch or tag.
 ### Managing it
 
 ```
-/plugin marketplace list             # marketplaces you have added
-/plugin marketplace update eng-pack  # pull the latest plugin versions
-/plugin marketplace remove eng-pack  # remove it (uninstalls its plugins)
-/plugin list                         # installed plugins
-/plugin disable <plugin-name>@eng-pack
-/plugin uninstall <plugin-name>@eng-pack
+/plugin marketplace list                  # marketplaces you have added
+/plugin marketplace update dev-standards  # pull the latest plugin versions
+/plugin marketplace remove dev-standards  # remove it (uninstalls its plugins)
+/plugin list                              # installed plugins
+/plugin disable <plugin-name>@dev-standards
+/plugin uninstall <plugin-name>@dev-standards
 ```
+
+## Plugins
+
+| Plugin | Version | Description |
+|---|---|---|
+| [example-plugin](plugins/example-plugin) | 0.1.0 | Reference plugin demonstrating the expected layout. Copy it to start a real plugin, or delete it. |
+
+This is a skeleton. `example-plugin` is a placeholder that proves the structure
+loads; real plugins get added on top of it.
 
 ## Team-wide installation
 
@@ -85,7 +69,7 @@ commit this to that repo's `.claude/settings.json`:
 ```json
 {
   "extraKnownMarketplaces": {
-    "eng-pack": {
+    "dev-standards": {
       "source": {
         "source": "github",
         "repo": "nirmata78/dev-standards"
@@ -93,82 +77,62 @@ commit this to that repo's `.claude/settings.json`:
     }
   },
   "enabledPlugins": {
-    "example-plugin@eng-pack": true
+    "example-plugin@dev-standards": true
   }
 }
 ```
 
-Adding the marketplace this way does not install the plugins - each team member
-still runs the install once, and Claude Code shows them the command to run.
+Registering the marketplace this way does not install the plugins - each team
+member still runs the install once, and Claude Code shows them the command.
 
-## Repository layout
+## How this repository is organized
 
 ```
 .
-├── .claude-plugin/
-│   └── marketplace.json              # marketplace index; `source` paths are repo-relative
-├── plugins/
-│   └── example-plugin/
-│       ├── .claude-plugin/
-│       │   └── plugin.json           # plugin manifest
-│       └── skills/
-│           └── example-skill/
-│               └── SKILL.md          # each skill lives in its own named directory
-├── LICENSE
-└── README.md
+├── .claude-plugin/marketplace.json   # marketplace index; source paths are repo-relative
+├── plugins/<name>/
+│   ├── .claude-plugin/plugin.json    # manifest - the ONLY file in this directory
+│   ├── README.md                     # atomic doc beside the code
+│   └── skills/<skill>/SKILL.md       # directory name becomes the skill name
+├── docs/                             # published site; nav.json is the canonical index
+├── scripts/check_repo.py             # structural + documentation checks
+├── CLAUDE.md                         # operating instructions for agents
+└── .github/workflows/                # CI and Pages deployment
 ```
 
-Layout rules this repo follows:
+Full detail: [Architecture](https://nirmata78.github.io/dev-standards/architecture).
 
-- `.claude-plugin/marketplace.json` sits at the repo root - that path is what
-  makes the repo addable as a marketplace.
-- Each `source` in `marketplace.json` is relative to the repo root
-  (`./plugins/<name>`).
-- Each plugin's manifest is at `<plugin>/.claude-plugin/plugin.json`.
-- Component directories (`skills/`, and optionally `commands/`, `agents/`,
-  `hooks/`) sit at the plugin root, **beside** `.claude-plugin/`, never inside
-  it. Only `plugin.json` goes inside `.claude-plugin/`.
-- A skill is a directory containing `SKILL.md`, so it can carry supporting files
-  next to it. The directory name becomes the skill's invocation name.
-- In `SKILL.md` frontmatter, `description` is the field that matters - Claude
-  reads it to decide when to load the skill, so write it as a trigger
-  condition. Add `disable-model-invocation: true` for a skill that should only
-  run when invoked explicitly.
-- Both manifests carry a `$schema` pointing at the published JSON Schema, so
-  editors autocomplete the fields and flag typos.
+## Documentation is a constraint
 
-## Adding a plugin
+This repository is maintained largely by AI agents, which arrive with no memory
+of yesterday. Three rules keep it readable, and **CI fails rather than warns**
+when they are broken:
 
-1. Copy `plugins/example-plugin/` to `plugins/<your-name>/`.
-2. Update `.claude-plugin/plugin.json` - `name` must match the directory.
-3. Replace the contents of `skills/` (and add `commands/`, `agents/`, or
-   `hooks/` if the plugin needs them).
-4. Add an entry to `.claude-plugin/marketplace.json` with
-   `"source": "./plugins/<your-name>"` and the same `name`.
+1. **Atomic docs near code.** Concepts live in `/docs`; component detail lives
+   beside the component. Each fact is written once, closest to what it
+   describes.
+2. **Doc-as-a-constraint.** Documentation changes in the same commit as the
+   code. A plugin with no docs page, or a skill with no `### <skill>` section,
+   fails the build.
+3. **Explicit navigation tree.** [`docs/nav.json`](docs/nav.json) indexes every
+   page, plugin, and skill so an agent can read one small file instead of
+   scanning the repository each session. CI cross-checks it against the
+   filesystem in both directions, because a stale index is worse than none.
 
-Develop against it without installing anything:
+Full rationale: [CodeWiki principles](https://nirmata78.github.io/dev-standards/codewiki).
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md), or the authoring guides for
+[plugins](https://nirmata78.github.io/dev-standards/authoring/plugins) and
+[skills](https://nirmata78.github.io/dev-standards/authoring/skills).
+
+Before pushing:
+
+```bash
+python3 scripts/check_repo.py      # structure and documentation
+claude plugin validate . --strict  # manifest schema
 ```
-claude --plugin-dir ./plugins/<your-name>
-```
-
-Run `/reload-plugins` to pick up edits without restarting the session.
-
-Validate before publishing - `--strict` turns warnings into errors, which is
-what you want in CI:
-
-```
-claude plugin validate . --strict                       # the marketplace index
-claude plugin validate ./plugins/<your-name> --strict    # one plugin manifest
-```
-
-Note that validation does not reject unknown fields, so a misspelled key can
-pass. The `$schema` reference in each manifest is what catches those in an
-editor.
-
-Bump the plugin's `version` in both its `plugin.json` and its
-`marketplace.json` entry whenever its behavior changes - users only receive
-updates when that field moves.
 
 ## License
 

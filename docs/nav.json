@@ -1,0 +1,29 @@
+{
+  "$comment": "Explicit navigation tree. Canonical index of this repository for humans and agents. scripts/check_repo.py fails CI if this drifts from the filesystem.",
+  "version": 1,
+  "site": "dev-standards",
+  "marketplace": "dev-standards",
+  "docs": [
+    { "title": "Overview", "path": "docs/index.md", "summary": "What this repository is and how to install from it." },
+    { "title": "CodeWiki principles", "path": "docs/codewiki.md", "summary": "The three documentation rules this repository enforces in CI." },
+    { "title": "Architecture", "path": "docs/architecture.md", "summary": "Repository layout, how Claude Code resolves it, and why each path matters." },
+    { "title": "Authoring plugins", "path": "docs/authoring/plugins.md", "summary": "Add a plugin to the marketplace, end to end." },
+    { "title": "Authoring skills", "path": "docs/authoring/skills.md", "summary": "Write a SKILL.md that Claude loads at the right time." },
+    { "title": "Validation", "path": "docs/validation.md", "summary": "What CI checks and how to run the same checks locally." }
+  ],
+  "plugins": {
+    "example-plugin": {
+      "manifest": "plugins/example-plugin/.claude-plugin/plugin.json",
+      "readme": "plugins/example-plugin/README.md",
+      "doc": "docs/plugins/example-plugin.md",
+      "summary": "Reference plugin demonstrating the expected layout.",
+      "skills": {
+        "example-skill": {
+          "path": "plugins/example-plugin/skills/example-skill/SKILL.md",
+          "summary": "Placeholder skill that documents the skill format.",
+          "model_invocable": false
+        }
+      }
+    }
+  }
+}

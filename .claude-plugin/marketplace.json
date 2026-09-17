@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
-  "name": "eng-pack",
-  "description": "Engineering standards pack - a marketplace of Claude Code plugins.",
+  "name": "dev-standards",
+  "description": "Engineering standards for AI-managed repositories - a Claude Code plugin marketplace.",
   "version": "0.1.0",
   "owner": {
     "name": "nirmata78",
@@ -18,7 +18,10 @@
       },
       "homepage": "https://github.com/nirmata78/dev-standards/tree/main/plugins/example-plugin",
       "license": "MIT",
-      "keywords": ["example", "template"],
+      "keywords": [
+        "example",
+        "template"
+      ],
       "category": "example"
     }
   ]
