@@ -1,0 +1,13 @@
+{
+  "name": "example-plugin",
+  "version": "0.1.0",
+  "description": "Reference plugin demonstrating the expected layout. Copy it as a starting point for a real plugin, or delete it.",
+  "author": {
+    "name": "nirmata78",
+    "url": "https://github.com/nirmata78"
+  },
+  "homepage": "https://github.com/nirmata78/dev-standards/tree/main/plugins/example-plugin",
+  "repository": "https://github.com/nirmata78/dev-standards",
+  "license": "MIT",
+  "keywords": ["example", "template"]
+}

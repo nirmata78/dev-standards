@@ -5,57 +5,20 @@
     "url": "https://github.com/nirmata78"
   },
   "metadata": {
-    "description": "Engineering standards pack: opinionated Claude Code plugins for living documentation, agile alignment, and contract-first verification.",
-    "version": "1.0.0"
+    "description": "Engineering standards pack - a marketplace of Claude Code plugins.",
+    "version": "0.1.0"
   },
   "plugins": [
     {
-      "name": "pragmatic-codewiki",
-      "source": "./plugins/pragmatic-codewiki",
-      "description": "Maintains a pragmatic, always-current code wiki: detects drift between code and docs, and updates only the pages the change actually touched.",
-      "version": "1.0.0",
+      "name": "example-plugin",
+      "source": "./plugins/example-plugin",
+      "description": "Reference plugin demonstrating the expected layout. Copy it as a starting point for a real plugin, or delete it.",
+      "version": "0.1.0",
       "author": {
         "name": "nirmata78"
       },
-      "keywords": [
-        "documentation",
-        "wiki",
-        "onboarding",
-        "adr"
-      ],
-      "category": "documentation"
-    },
-    {
-      "name": "scrum-master",
-      "source": "./plugins/scrum-master",
-      "description": "Keeps engineering work aligned to the agile artifacts: turns vague requests into well-formed backlog items and checks work in progress against sprint scope.",
-      "version": "1.0.0",
-      "author": {
-        "name": "nirmata78"
-      },
-      "keywords": [
-        "agile",
-        "scrum",
-        "backlog",
-        "planning"
-      ],
-      "category": "workflow"
-    },
-    {
-      "name": "contract-masterplan",
-      "source": "./plugins/contract-masterplan",
-      "description": "Enforces contract-first delivery: derives the API/schema contract before implementation and verifies producers and consumers against it.",
-      "version": "1.0.0",
-      "author": {
-        "name": "nirmata78"
-      },
-      "keywords": [
-        "api",
-        "openapi",
-        "contract-testing",
-        "schema"
-      ],
-      "category": "quality"
+      "keywords": ["example", "template"],
+      "category": "example"
     }
   ]
 }

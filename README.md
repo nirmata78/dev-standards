@@ -1,16 +1,12 @@
 # eng-pack
 
-A Claude Code plugin marketplace of engineering-standards plugins: keep
-documentation current, keep work aligned to its backlog, and keep integrations
-honest to their contracts.
+A Claude Code plugin marketplace. This repository is the skeleton - it defines
+the layout and the marketplace index; the plugins themselves get added over
+time.
 
-## Plugins
-
-| Plugin | What it does |
-|---|---|
-| **pragmatic-codewiki** | Maintains a pragmatic, always-current code wiki. Detects drift between code and docs and updates only the pages a change actually invalidated. |
-| **scrum-master** | Turns vague requests into well-formed backlog items with testable acceptance criteria, and flags work that has drifted outside sprint scope. |
-| **contract-masterplan** | Drives contract-first delivery: pins the API/schema contract before implementation, then verifies producers and consumers against it. |
+It currently ships one placeholder plugin, `example-plugin`, whose only job is
+to prove the structure loads. Copy it to start a real plugin, or delete it once
+there are real ones.
 
 ## Install
 
@@ -20,12 +16,10 @@ Add the marketplace once:
 /plugin marketplace add nirmata78/dev-standards
 ```
 
-Then install whichever plugins you want:
+Then install a plugin from it:
 
 ```
-/plugin install pragmatic-codewiki@eng-pack
-/plugin install scrum-master@eng-pack
-/plugin install contract-masterplan@eng-pack
+/plugin install <plugin-name>@eng-pack
 ```
 
 Or browse and install interactively:
@@ -35,7 +29,8 @@ Or browse and install interactively:
 ```
 
 Plugins installed this way are available in **all** your projects. Restart
-Claude Code (or start a new session) after installing so the skills load.
+Claude Code (or start a new session) after installing so the plugin's
+components load.
 
 ### Other ways to add the marketplace
 
@@ -50,25 +45,13 @@ Claude Code (or start a new session) after installing so the skills load.
 /plugin marketplace list             # marketplaces you have added
 /plugin marketplace update eng-pack  # pull the latest plugin versions
 /plugin marketplace remove eng-pack  # remove it (uninstalls its plugins)
-/plugin uninstall scrum-master@eng-pack
+/plugin uninstall <plugin-name>@eng-pack
 ```
-
-## Using the plugins
-
-Each plugin ships a skill that Claude invokes on its own when the work matches.
-You do not call anything explicitly - just describe the task:
-
-- *"Update the docs for the change I just made"* → **pragmatic-codewiki**
-- *"Turn this request into a story with acceptance criteria"* → **scrum-master**
-- *"Does this endpoint still match the OpenAPI spec?"* → **contract-masterplan**
-
-Each skill adopts the conventions already in your repo (doc layout, ticket ID
-format, schema location) rather than imposing its own.
 
 ## Team-wide installation
 
-To make these plugins load automatically for everyone working in a repo, commit
-this to that repo's `.claude/settings.json`:
+To make plugins from this marketplace load automatically for everyone working
+in a repo, commit this to that repo's `.claude/settings.json`:
 
 ```json
 {
@@ -81,9 +64,7 @@ this to that repo's `.claude/settings.json`:
     }
   },
   "enabledPlugins": {
-    "pragmatic-codewiki@eng-pack": true,
-    "scrum-master@eng-pack": true,
-    "contract-masterplan@eng-pack": true
+    "example-plugin@eng-pack": true
   }
 }
 ```
@@ -93,20 +74,14 @@ this to that repo's `.claude/settings.json`:
 ```
 .
 ├── .claude-plugin/
-│   └── marketplace.json          # marketplace index; `source` paths are repo-relative
+│   └── marketplace.json              # marketplace index; `source` paths are repo-relative
 ├── plugins/
-│   ├── pragmatic-codewiki/
-│   │   ├── .claude-plugin/
-│   │   │   └── plugin.json       # plugin manifest
-│   │   └── skills/
-│   │       └── pragmatic-codewiki/
-│   │           └── SKILL.md      # each skill lives in its own named directory
-│   ├── scrum-master/
-│   │   ├── .claude-plugin/plugin.json
-│   │   └── skills/scrum-master/SKILL.md
-│   └── contract-masterplan/
-│       ├── .claude-plugin/plugin.json
-│       └── skills/contract-masterplan/SKILL.md
+│   └── example-plugin/
+│       ├── .claude-plugin/
+│       │   └── plugin.json           # plugin manifest
+│       └── skills/
+│           └── example-skill/
+│               └── SKILL.md          # each skill lives in its own named directory
 └── README.md
 ```
 
@@ -114,7 +89,8 @@ Layout rules this repo follows:
 
 - `.claude-plugin/marketplace.json` sits at the repo root - that path is what
   makes the repo addable as a marketplace.
-- Each `source` in `marketplace.json` is relative to the repo root (`./plugins/<name>`).
+- Each `source` in `marketplace.json` is relative to the repo root
+  (`./plugins/<name>`).
 - Each plugin's manifest is at `<plugin>/.claude-plugin/plugin.json`, and its
   `name` matches both its directory name and its `marketplace.json` entry.
 - Component directories (`skills/`, and optionally `commands/`, `agents/`,
@@ -124,21 +100,25 @@ Layout rules this repo follows:
 - `SKILL.md` frontmatter needs `name` (matching its directory) and a
   `description` written so Claude can tell from it when to invoke the skill.
 
-## Contributing
+## Adding a plugin
 
-To add a plugin: create `plugins/<name>/` with a `.claude-plugin/plugin.json`
-and at least one component directory, then add an entry to
-`.claude-plugin/marketplace.json` with `"source": "./plugins/<name>"`.
+1. Copy `plugins/example-plugin/` to `plugins/<your-name>/`.
+2. Update `.claude-plugin/plugin.json` - `name` must match the directory.
+3. Replace the contents of `skills/` (and add `commands/`, `agents/`, or
+   `hooks/` if the plugin needs them).
+4. Add an entry to `.claude-plugin/marketplace.json` with
+   `"source": "./plugins/<your-name>"`.
 
-Test locally before publishing:
+Validate and test locally before publishing:
 
 ```
+claude plugin validate .
 /plugin marketplace add /path/to/your/clone
-/plugin install <name>@eng-pack
+/plugin install <your-name>@eng-pack
 ```
 
-Bump the plugin's `version` in both its `plugin.json` and its `marketplace.json`
-entry whenever its behavior changes.
+Bump the plugin's `version` in both its `plugin.json` and its
+`marketplace.json` entry whenever its behavior changes.
 
 ## License
 
